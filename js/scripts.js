@@ -1,20 +1,47 @@
 //back end logic
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+
+
+function playerOne () {
+  this.roll1 = 0;
+  this.score1 = 0;
+  this.total1 = 0;
 }
+
+
+playerOne.prototype.Random = function() {
+  min = 1;
+  max = 6;
+  this.roll1 = Math.floor(Math.random() * (max - min + 1)) + min;
+  console.log(newPlayerOne.roll1);
+}
+
+function playerTwo (roll2, score2, total2) {
+  this.roll2 = roll2;
+  this.score2 = score2;
+  this.total2 = total2;
+}
+
+
+
+
+
 
 
 //user interface logic
 $(document).ready(function(){
+  newPlayerOne = new playerOne();
   $("#roll01").click(function(event){
     event.preventDefault();
+    newPlayerOne.Random();
+
     console.log("okay great");
 
-
-    var roll = getRandomIntInclusive(1, 6);
-    console.log(roll);
-
   });
+  // var currentScore = 0;
+  // if (roll === 1) {
+  //   currentScore = 0;
+  // } else {
+  //   newScore = new Score(roll);
+  // }
+
 });
