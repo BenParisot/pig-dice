@@ -13,7 +13,14 @@ playerOne.prototype.Random = function() {
   max = 6;
   this.roll1 = Math.floor(Math.random() * (max - min + 1)) + min;
   console.log(newPlayerOne.roll1);
-}
+  if (this.roll1 === 1) {
+    this.score1 = 0;
+    console.log("you rolled a one, and lose your points this turn.");
+  } else {
+    this.score1 += this.roll1;
+    console.log(this.score1);
+  };
+};
 
 function playerTwo (roll2, score2, total2) {
   this.roll2 = roll2;
