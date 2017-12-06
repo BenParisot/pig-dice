@@ -1,7 +1,7 @@
 //back end logic
 
 function playerOne () {
-  this.roll1 = 1;
+  this.roll1 = 0;
   this.score1 = 0;
   this.total1 = 0;
   this.turn = "yes";
@@ -49,18 +49,54 @@ playerOne.prototype.Tally = function() {
   this.turn = "no";
 };
 
-playerOne.prototype.Playability = function() {
-  if (this.roll1 === 0){
-    console.log("It's not your turn!");
-  };
-};
-
 function playerTwo () {
-  this.roll2 = 1;
+  this.roll2 = 0;
   this.score2 = 0;
   this.total2 = 0;
   this.turn = "no";
 }
+
+playerTwo.prototype.Random = function() {
+  if (this.turn === "no"){
+    console.log("It's not your turn!");
+  } else {
+    min = 1;
+    max = 6;
+    this.roll2 = Math.floor(Math.random() * (max - min + 1)) + min;
+    if (this.roll2 === 1) {
+      this.score2 = 0;
+      newPlayerOne.turn = "yes";
+      this.turn = "no";
+      $("#current-roll02").text(this.roll2);
+      $("#current-score02").text(this.score2)
+    } else {
+      $("#current-roll02").text(this.roll2);
+      this.score2 += this.roll2;
+      if ((this.score2 + this.total2) < 100) {
+        $("#current-roll02").text(this.roll2);
+        $("#current-score02").text(this.score2)
+      } else {
+        $("#current-roll02").text(this.roll2);
+        $("#total-score02").text(this.total2 + this.score2 + " You Win!");
+      };
+    };
+  };
+};
+
+playerTwo.prototype.Tally = function() {
+  if ((this.score2 + this.total2) < 100) {
+    this.total2 += this.score2;
+    $("#current-score02").text(this.score2);
+    $("#total-score02").text(this.total2)
+  } else {
+    $("#current-roll02").text(this.roll2);
+    $("#total-score02").text((this.total2 + this.roll2) + " You Win!")
+  }
+  this.score2 = 0;
+  this.roll2 = 0;
+  newPlayerOne.turn = "yes";
+  this.turn = "no";
+};
 
 //user interface logic
 $(document).ready(function(){
@@ -68,12 +104,18 @@ $(document).ready(function(){
   newPlayerTwo = new playerTwo();
   $("#roll01").click(function(event){
     event.preventDefault();
-    // newPlayerOne.Playability();
     newPlayerOne.Random();
-    console.log("okay great");
   });
   $("#hold01").click(function(event){
     event.preventDefault();
     newPlayerOne.Tally();
+  });
+  $("#roll02").click(function(event){
+    event.preventDefault();
+    newPlayerTwo.Random();
+  });
+  $("#hold02").click(function(event){
+    event.preventDefault();
+    newPlayerTwo.Tally();
   });
 });
