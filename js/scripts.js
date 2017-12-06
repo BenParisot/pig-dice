@@ -1,6 +1,5 @@
 //back end logic
 
-
 function playerOne () {
   this.roll1 = 0;
   this.score1 = 0;
@@ -13,15 +12,19 @@ playerOne.prototype.Random = function() {
   this.roll1 = Math.floor(Math.random() * (max - min + 1)) + min;
   if (this.roll1 === 1) {
     this.score1 = 0;
-    console.log("you rolled a one, and lose your points this turn.");
+    $("#current-roll01").text(this.roll1);
+    $("#current-score01").text(this.score1)
   } else {
+    $("#current-roll01").text(this.roll1);
     this.score1 += this.roll1;
     if ((this.score1 + this.total1) < 100) {
-      console.log("Your roll is: " + this.roll1);
-      console.log("Your score this round is: " + this.score1);
+      $("#current-roll01").text(this.roll1);
+      $("#current-score01").text(this.score1)
+      // console.log("Your score this round is: " + this.score1);
     } else {
-      console.log("Your roll is: " + this.roll1);
-      console.log("That mean's you've reached " + (this.total1 + this.score1) + ", and win the game!");
+      $("#current-roll01").text(this.roll1);
+      $("#total-score01").text(this.total1 + this.score1 + "You Win!");
+      // console.log("That mean's you've reached " + (this.total1 + this.score1) + ", and win the game!");
     }
   };
 };
@@ -29,10 +32,13 @@ playerOne.prototype.Random = function() {
 playerOne.prototype.Tally = function() {
   if ((this.score1 + this.total1) < 100) {
     this.total1 += this.score1;
-    console.log("Your score this round is: " + this.score1 + ", and your total so far is: " + this.total1);
+    $("#current-score01").text(this.score1);
+    $("#total-score01").text(this.total1)
+    // console.log("Your score this round is: " + this.score1 + ", and your total so far is: " + this.total1);
   } else {
-    console.log("Your roll is: " + this.roll1);
-    console.log("You've reached " + this.total1 + ", and win the game!");
+    $("#current-roll01").text(this.roll1);
+    $("#total-score01").text((this.total1 + this.roll) + "YOU WIN!")
+    //console.log("You've reached " + this.total1 + ", and win the game!");
   }
   this.score1 = 0;
 };
